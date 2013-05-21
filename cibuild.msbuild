@@ -1,0 +1,50 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003"
+         DefaultTargets="Compile">
+  <PropertyGroup>
+    <Configuration>Debug</Configuration>
+    <Platform>AnyCPU</Platform>
+    <DefineSolutionProperties>false</DefineSolutionProperties>
+ 
+    <!-- General Paths -->
+    <RootPath>$(MSBuildProjectDirectory)</RootPath>
+    <SrcPath>$(RootPath)</SrcPath>
+    <ReportsPath>$(RootPath)\reports</ReportsPath>
+    <ToolsPath>$(RootPath)\tools</ToolsPath>
+    <Packages>$(RootPath)\packages</Packages>
+	<ExportableExtensions>$(SrcPath)\Trx2Any\bin\Debug\ExportableExtensions </ExportableExtensions>
+  </PropertyGroup>
+  
+  <!-- The Clean Target -->
+  <ItemGroup>
+    <ProjectFiles Include="**\*.csproj" />
+	
+  </ItemGroup>
+  <Target Name="Clean">
+    <Message Importance="high" Text="Cleaning folders"/>
+    <!-- Clean the source code projects -->
+    <MSBuild Projects="@(ProjectFiles)"
+             ContinueOnError="false"
+             Targets="Clean"
+             Properties="Configuration=$(Configuration)" />
+	 <RemoveDir Directories="$(ExportableExtensions)" Condition="Exists('$(ExportableExtensions)')" />
+	 <MakeDir Directories="$(ExportableExtensions)" />
+  </Target>
+  
+  <!-- The LoadNuGetPackages Target -->
+  <ItemGroup>
+    <NuGetPackageConfigs Include="$(MSBuildStartupDirectory)\**\packages.config" />
+  </ItemGroup>
+  <Target Name="LoadNuGetPackages">
+    <Message Importance="high" 
+    Text="Retrieving packages for %(NuGetPackageConfigs.Identity)" />
+    <Exec Command="&quot;$(SrcPath)\.nuget\nuget&quot; install &quot;%(NuGetPackageConfigs.Identity)&quot; -o &quot;$(SrcPath)\packages&quot;" />  </Target>
+  
+  <!-- The Compile Target -->
+  <Target Name="Compile" DependsOnTargets="Clean;LoadNuGetPackages">
+    <Message Importance="high" Text="Compiling core projects"/>
+	<MSBuild Projects="$(SrcPath)\Trx2Any.Common\Trx2Any.Common.csproj" Properties="Configuration=$(Configuration);Platform=$(Platform)" />    
+	<MSBuild Projects="$(SrcPath)\Trx2Any.ExportableFormats\Trx2Any.ExportableFormats.csproj" Properties="Configuration=$(Configuration);Platform=$(Platform)" />    
+	<MSBuild Projects="$(SrcPath)\Trx2Any.ParsableFormats\Trx2Any.ParsableFormats.csproj" Properties="Configuration=$(Configuration);Platform=$(Platform)" />    
+	<MSBuild Projects="$(SrcPath)\Trx2Any\Trx2Any.Presentation.ConsoleMode.csproj" Properties="Configuration=$(Configuration);Platform=$(Platform)" />    	
+  </Target>
+</Project>
