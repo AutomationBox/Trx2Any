@@ -23,13 +23,13 @@ Trx2Any wishes to be a tool to convert test results reports (e.g. trx reports ) 
  
 ### How do I use Trx2Any and how to Integrate it with CI?
 Trx2Any is meant to provide easy operation for converting test reports to analysis friendly reports and aims at providing seamless integration with CI.
-Detailed documentation about usage and CI Integration is here.
+Detailed documentation about usage and CI Integration is [here](https://github.com/TestAutomator/Trx2Any/wiki/Usage-and-CI-Integration).
  
 ### How to Extend the Framework for Parsing a New Test Results File Format?
-So you found that you have a report format that you couldn’t parse using Trx2Any. But still you want to save yourself from writing a conversion logic, that converts your data and write to a usable format (of course, format supported by Trx2Any). Here, Trx2Any saves your day. Trx2Any supports extensions to the Parse-able formats. A step by step guide is here.
+So you found that you have a report format that you couldn’t parse using Trx2Any. But still you want to save yourself from writing a conversion logic, that converts your data and write to a usable format (of course, format supported by Trx2Any). Here, Trx2Any saves your day. Trx2Any supports extensions to the Parse-able formats. A step by step guide is [here](https://github.com/TestAutomator/Trx2Any/wiki/Extending-the-Framework-for-Exporting-Test-Results-to-a-New-Format).
  
 ### How to Extend the Framework for exporting Test Results to a new file format?
-Didn’t like the formats Trx2Any outputs to? Creating your own formats and using it with Trx2Any is simple. Follow these steps.
+Didn’t like the formats Trx2Any outputs to? Creating your own formats and using it with Trx2Any is simple. Follow these [steps](https://github.com/TestAutomator/Trx2Any/wiki/Extending-the-Framework-for-Parsing-a-New-Test-Results-File-Format).
  
 ### Where does Trx2Any go from here?
 We will soon update and publish our Product backlog. But surely, future looks promising.
