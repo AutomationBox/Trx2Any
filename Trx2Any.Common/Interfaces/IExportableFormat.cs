@@ -8,6 +8,6 @@ namespace Trx2Any.Common.Interfaces
     {
         bool ExportData(TestSummary testSummaryCollection,
                         UnitTestResultCollection UnitTestResultCollection,
-                        string fileName);
+                        string fileName,bool isIncludeOutput);
      }
 }

@@ -39,6 +39,9 @@
     <Reference Include="EPPlus">
       <HintPath>..\packages\EPPlus.3.1.2\lib\net35\EPPlus.dll</HintPath>
     </Reference>
+    <Reference Include="itextsharp">
+      <HintPath>..\packages\iTextSharp.5.3.3\lib\itextsharp.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
@@ -50,7 +53,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommonUtilities.cs" />
     <Compile Include="ExportToExcel.cs" />
+    <Compile Include="ExportToPdf.cs" />
     <Compile Include="Factories\ExportableFormatFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -36,13 +36,16 @@ namespace Trx2Any.Presentation.ConsoleMode.Views
                 if (String.IsNullOrEmpty(_viewModel.ExportableFormat))
                     _viewModel.ExportableFormat = ConfigurationManager.AppSettings.Get("ExportableFormat");
 
+                bool isIncludeOuput = Convert.ToBoolean(
+                    ConfigurationManager.AppSettings.Get("IncludeOutputInReport").ToString());
+
                 var parsableFactory = MEFServiceLocator.Instance.GetInstance<IParsableFromatFactory>();
                 var trx = parsableFactory.GetProvider(_viewModel.ParsableFormat, _viewModel.ParsedFilePath);
 
                 var exportableFormatFactory = MEFServiceLocator.Instance.GetInstance<IExportableFormatFactory>();
                 var export = exportableFormatFactory.GetProvider(_viewModel.ExportableFormat);
 
-                var isExported = export.ExportData(trx.TestSummary, trx.UnitTestCollection, _viewModel.OutputFilePath);
+                var isExported = export.ExportData(trx.TestSummary, trx.UnitTestCollection, _viewModel.OutputFilePath, isIncludeOuput);
                 if (!isExported)
                 {
                     throw new Exception("Above trx could not be exported to excel");

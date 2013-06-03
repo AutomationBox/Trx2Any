@@ -6,6 +6,7 @@ using System.Data;
 using System.Drawing;
 using Trx2Any.Common.Interfaces;
 using Trx2Any.Common.TestBase;
+using Trx2Any.ExportableFormats.Library;
 
 namespace Trx2Any.ExportableFormats
 {
@@ -15,14 +16,14 @@ namespace Trx2Any.ExportableFormats
     {
         public bool ExportData(TestSummary testSummaryCollection,
                                UnitTestResultCollection unitTestResultCollection,
-                               string fileName)
+                               string fileName,bool isIncludeOutput)
         {
-            GenerateReport(unitTestResultCollection, testSummaryCollection, fileName);
+            GenerateReport(unitTestResultCollection, testSummaryCollection, fileName, isIncludeOutput);
             return true;
         }
 
         private static void GenerateReport(UnitTestResultCollection unitTestResultCollection,
-                                           TestSummary testSummaryCollection, string fileName)
+                                           TestSummary testSummaryCollection, string fileName, bool isIncludeOutput)
         {
             var file = new System.IO.FileInfo(fileName);
             if (file.Exists)
@@ -33,7 +34,7 @@ namespace Trx2Any.ExportableFormats
                 SetWorkbookProperties(p);
                 //Create a sheet
                 ExcelWorksheet ws = CreateSheet(p, unitTestResultCollection.CollectionName);
-                DataTable dt = CreateDataTable(unitTestResultCollection);
+                DataTable dt = CommonUtilities.CreateDataTable(unitTestResultCollection, isIncludeOutput);
 
                 ////Merging cells and create a center heading for out table
                 ws.Cells[1, 1].Value = "Trx2Any - Trx to Excel Export";
